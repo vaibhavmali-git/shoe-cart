@@ -1,14 +1,23 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { ChevronLeft } from "lucide-react-native";
 import { useState } from "react";
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+    Alert,
+    Image,
+    ScrollView,
+    Text,
+    TouchableOpacity,
+    View,
+} from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../src/store";
+import { addToCart } from "../../src/store/slices/cartSlice";
 
 export default function ProductDetails() {
   const { id } = useLocalSearchParams();
   const router = useRouter();
+  const dispatch = useDispatch();
   const insets = useSafeAreaInsets();
   const [selectedSize, setSelectedSize] = useState<number | null>(null);
 
@@ -33,6 +42,30 @@ export default function ProductDetails() {
     );
   }
 
+  const handleAddToCart = () => {
+    if (!selectedSize) {
+      Alert.alert(
+        "Select a Size",
+        "Please choose a shoe size before adding to your cart.",
+      );
+      return;
+    }
+
+    dispatch(
+      addToCart({
+        id: `${product.id}-${selectedSize}`,
+        product,
+        size: selectedSize,
+        quantity: 1,
+      }),
+    );
+
+    Alert.alert("Success", "Added to cart successfully!", [
+      { text: "Keep Shopping" },
+      { text: "Go to Cart", onPress: () => router.push("/(customer)/cart") },
+    ]);
+  };
+
   return (
     <View className="flex-1 bg-[#f5f5f4]">
       <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
@@ -42,7 +75,6 @@ export default function ProductDetails() {
             className="absolute w-full h-full"
             resizeMode="cover"
           />
-
           <View
             style={{ paddingTop: Math.max(insets.top, 16) }}
             className="absolute top-0 left-0 w-full px-6"
@@ -109,7 +141,7 @@ export default function ProductDetails() {
       >
         <TouchableOpacity
           className="items-center w-full py-4 shadow-sm bg-neutral-900 rounded-2xl"
-          onPress={() => console.log("Added size", selectedSize, "to cart")}
+          onPress={handleAddToCart}
         >
           <Text className="text-lg font-medium text-white">Add to Cart</Text>
         </TouchableOpacity>
