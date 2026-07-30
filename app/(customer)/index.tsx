@@ -1,3 +1,4 @@
+import { useRouter } from "expo-router";
 import { FlatList, SafeAreaView, Text, View } from "react-native";
 import { useSelector } from "react-redux";
 import ProductCard from "../../src/components/ProductCard";
@@ -5,6 +6,7 @@ import { RootState } from "../../src/store";
 
 export default function CustomerHome() {
   const products = useSelector((state: RootState) => state.products.items);
+  const router = useRouter();
 
   return (
     <SafeAreaView className="flex-1 bg-[#f5f5f4]">
@@ -23,7 +25,7 @@ export default function CustomerHome() {
         renderItem={({ item }) => (
           <ProductCard
             product={item}
-            onPress={() => console.log("Navigate to details:", item.name)}
+            onPress={() => router.push(`/product/${item.id}`)}
           />
         )}
         contentContainerStyle={{ paddingHorizontal: 24, paddingBottom: 40 }}
