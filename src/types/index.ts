@@ -9,8 +9,17 @@ export interface Product {
 }
 
 export interface CartItem {
-  id: string; 
+  id: string;
   product: Product;
   size: number;
   quantity: number;
+}
+
+export interface Order {
+  id: string;
+  items: CartItem[];
+  total: number;
+  date: string;
+  status: "Processing" | "Shipped" | "Delivered";
+  customerName: string;
 }

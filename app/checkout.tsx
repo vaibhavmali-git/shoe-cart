@@ -14,8 +14,9 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { z } from "zod";
-import { useAppDispatch } from "../src/store/hooks";
+import { useAppDispatch, useAppSelector } from "../src/store/hooks";
 import { clearCart } from "../src/store/slices/cartSlice";
+import { placeOrder } from "../src/store/slices/orderSlice";
 
 const checkoutSchema = z.object({
   name: z.string().min(2, "Name is required"),
@@ -31,6 +32,7 @@ export default function CheckoutScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const cartItems = useAppSelector((state) => state.cart.items);
 
   const {
     control,
@@ -48,7 +50,26 @@ export default function CheckoutScreen() {
   });
 
   const onSubmit = (data: CheckoutFormData) => {
+    // Calculate total
+    const total = cartItems.reduce(
+      (sum, item) => sum + item.product.price * item.quantity,
+      0,
+    );
+
+    // Create the order object
+    const newOrder = {
+      id: `ORD-${Date.now()}`,
+      items: cartItems,
+      total,
+      date: new Date().toISOString(),
+      status: "Processing" as const,
+      customerName: data.name,
+    };
+
+    // Save to order history, then clear the cart
+    dispatch(placeOrder(newOrder));
     dispatch(clearCart());
+
     Alert.alert(
       "Payment Successful",
       `Thank you for your order, ${data.name}!`,

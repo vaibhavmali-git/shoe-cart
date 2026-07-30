@@ -3,16 +3,18 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import authReducer from "./slices/authSlice";
 import cartReducer from "./slices/cartSlice";
+import orderReducer from "./slices/orderSlice";
 import productReducer from "./slices/productSlice";
 
 const rootReducer = combineReducers({
   auth: authReducer,
   products: productReducer,
   cart: cartReducer,
+  orders: orderReducer,
 });
 
 const persistConfig = {
-  key: "root_v3",
+  key: "root_v4",
   storage: AsyncStorage,
 };
 
