@@ -10,10 +10,9 @@ export default function RoleSelectionScreen() {
   const router = useRouter();
   const currentRole = useSelector((state: RootState) => state.auth.role);
 
-  // Auto-navigate if a role is already selected or restored from storage
   useEffect(() => {
     if (currentRole === "customer") {
-      router.replace("/(customer)/home");
+      router.replace("/(customer)");
     } else if (currentRole === "admin") {
       router.replace("/(admin)/dashboard");
     }
