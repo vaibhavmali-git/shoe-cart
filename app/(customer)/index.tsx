@@ -1,34 +1,34 @@
-import { useRouter } from "expo-router";
-import { Text, TouchableOpacity, View } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import { FlatList, SafeAreaView, Text, View } from "react-native";
+import { useSelector } from "react-redux";
+import ProductCard from "../../src/components/ProductCard";
 import { RootState } from "../../src/store";
-import { clearRole } from "../../src/store/slices/authSlice";
 
 export default function CustomerHome() {
-  const dispatch = useDispatch();
-  const router = useRouter();
-
   const products = useSelector((state: RootState) => state.products.items);
 
-  const handleReset = () => {
-    dispatch(clearRole());
-    router.replace("/");
-  };
-
   return (
-    <View className="flex-1 items-center justify-center bg-[#f5f5f4]">
-      <Text className="text-2xl font-bold text-neutral-900">Customer Home</Text>
+    <SafeAreaView className="flex-1 bg-[#f5f5f4]">
+      <View className="px-6 pt-8 pb-6">
+        <Text className="text-4xl font-bold tracking-tight text-neutral-900">
+          Discover
+        </Text>
+        <Text className="mt-2 text-base text-neutral-500">
+          Perfect shoes for you
+        </Text>
+      </View>
 
-      <Text className="mt-4 text-emerald-600 font-medium">
-        {products.length} shoes loaded in database
-      </Text>
-
-      <TouchableOpacity
-        onPress={handleReset}
-        className="mt-8 px-6 py-3 bg-neutral-200 rounded-xl"
-      >
-        <Text className="text-neutral-700 font-medium">Reset Role</Text>
-      </TouchableOpacity>
-    </View>
+      <FlatList
+        data={products}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <ProductCard
+            product={item}
+            onPress={() => console.log("Navigate to details:", item.name)}
+          />
+        )}
+        contentContainerStyle={{ paddingHorizontal: 24, paddingBottom: 40 }}
+        showsVerticalScrollIndicator={false}
+      />
+    </SafeAreaView>
   );
 }
