@@ -1,5 +1,6 @@
+import { useRouter } from "expo-router";
 import { ShoppingBag } from "lucide-react-native";
-import { Alert, FlatList, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import CartItemCard from "../../src/components/CartItemCard";
 import { useAppDispatch, useAppSelector } from "../../src/store/hooks";
@@ -9,14 +10,14 @@ export default function CartScreen() {
   const insets = useSafeAreaInsets();
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cart.items);
-
+  const router = useRouter();
   const cartTotal = cartItems.reduce(
     (total, item) => total + item.product.price * item.quantity,
     0,
   );
 
   const handleCheckout = () => {
-    Alert.alert("Checkout", `Processing payment for $${cartTotal}...`);
+    router.push("/checkout");
   };
 
   if (cartItems.length === 0) {
