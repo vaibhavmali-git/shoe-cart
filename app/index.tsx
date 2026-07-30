@@ -1,3 +1,5 @@
+import { useRouter } from "expo-router";
+import { useEffect } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../src/store";
@@ -5,7 +7,17 @@ import { setRole } from "../src/store/slices/authSlice";
 
 export default function RoleSelectionScreen() {
   const dispatch = useDispatch();
+  const router = useRouter();
   const currentRole = useSelector((state: RootState) => state.auth.role);
+
+  // Auto-navigate if a role is already selected or restored from storage
+  useEffect(() => {
+    if (currentRole === "customer") {
+      router.replace("/(customer)/home");
+    } else if (currentRole === "admin") {
+      router.replace("/(admin)/dashboard");
+    }
+  }, [currentRole, router]);
 
   return (
     <View className="flex-1 items-center justify-center bg-[#f5f5f4] px-6">
@@ -16,13 +28,6 @@ export default function RoleSelectionScreen() {
         <Text className="text-base text-neutral-500 mt-2">
           Choose your experience
         </Text>
-
-        {/* Temporary UI to verify Redux state updates */}
-        {currentRole && (
-          <Text className="mt-4 text-sm font-medium text-emerald-600">
-            Active Role: {currentRole}
-          </Text>
-        )}
       </View>
 
       <View className="w-full gap-4">
