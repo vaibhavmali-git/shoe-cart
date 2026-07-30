@@ -1,34 +1,38 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { configureStore } from '@reduxjs/toolkit';
-import { persistReducer, persistStore } from 'redux-persist';
-import authReducer from './slices/authSlice';
-import cartReducer from './slices/cartSlice';
-import productReducer from './slices/productSlice';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { persistReducer, persistStore } from "redux-persist";
+import authReducer from "./slices/authSlice";
+import cartReducer from "./slices/cartSlice";
+import productReducer from "./slices/productSlice";
+
+const rootReducer = combineReducers({
+  auth: authReducer,
+  products: productReducer,
+  cart: cartReducer,
+});
 
 const persistConfig = {
-  key: 'root',
+  key: "root_v3",
   storage: AsyncStorage,
 };
 
-const persistedAuthReducer = persistReducer(persistConfig, authReducer);
-const persistedProductReducer = persistReducer(persistConfig, productReducer);
-const persistedCartReducer = persistReducer(persistConfig, cartReducer);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: {
-    auth: persistedAuthReducer,
-    products: persistedProductReducer,
-    cart: persistedCartReducer,
-  },
+  reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE', 'persist/REGISTER'],
+        ignoredActions: [
+          "persist/PERSIST",
+          "persist/REHYDRATE",
+          "persist/REGISTER",
+        ],
       },
     }),
 });
 
 export const persistor = persistStore(store);
 
-export type RootState = ReturnType<typeof store.getState>;
+export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;

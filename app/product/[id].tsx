@@ -10,18 +10,17 @@ import {
     View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../src/store";
+import { useAppDispatch, useAppSelector } from "../../src/store/hooks";
 import { addToCart } from "../../src/store/slices/cartSlice";
 
 export default function ProductDetails() {
   const { id } = useLocalSearchParams();
   const router = useRouter();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const insets = useSafeAreaInsets();
   const [selectedSize, setSelectedSize] = useState<number | null>(null);
 
-  const product = useSelector((state: RootState) =>
+  const product = useAppSelector((state) =>
     state.products.items.find((item) => item.id === id),
   );
 

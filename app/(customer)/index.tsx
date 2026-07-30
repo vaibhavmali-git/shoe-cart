@@ -1,12 +1,11 @@
 import { useRouter } from "expo-router";
 import { FlatList, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useSelector } from "react-redux";
 import ProductCard from "../../src/components/ProductCard";
-import { RootState } from "../../src/store";
+import { useAppSelector } from "../../src/store/hooks";
 
 export default function CustomerHome() {
-  const products = useSelector((state: RootState) => state.products.items);
+  const products = useAppSelector((state) => state.products.items);
   const router = useRouter();
 
   return (
