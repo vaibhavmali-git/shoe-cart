@@ -1,5 +1,6 @@
 import { useRouter } from "expo-router";
-import { FlatList, SafeAreaView, Text, View } from "react-native";
+import { FlatList, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useSelector } from "react-redux";
 import ProductCard from "../../src/components/ProductCard";
 import { RootState } from "../../src/store";
@@ -10,7 +11,7 @@ export default function CustomerHome() {
 
   return (
     <SafeAreaView className="flex-1 bg-[#f5f5f4]">
-      <View className="px-6 pt-8 pb-6">
+      <View className="px-6 pt-2 pb-6">
         <Text className="text-4xl font-bold tracking-tight text-neutral-900">
           Discover
         </Text>

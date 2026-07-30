@@ -1,20 +1,15 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { ChevronLeft } from "lucide-react-native";
 import { useState } from "react";
-import {
-    Image,
-    SafeAreaView,
-    ScrollView,
-    Text,
-    TouchableOpacity,
-    View,
-} from "react-native";
+import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useSelector } from "react-redux";
 import { RootState } from "../../src/store";
 
 export default function ProductDetails() {
   const { id } = useLocalSearchParams();
   const router = useRouter();
+  const insets = useSafeAreaInsets();
   const [selectedSize, setSelectedSize] = useState<number | null>(null);
 
   const product = useSelector((state: RootState) =>
@@ -23,7 +18,10 @@ export default function ProductDetails() {
 
   if (!product) {
     return (
-      <SafeAreaView className="flex-1 items-center justify-center bg-[#f5f5f4]">
+      <View
+        style={{ paddingTop: insets.top }}
+        className="flex-1 items-center justify-center bg-[#f5f5f4]"
+      >
         <Text className="text-lg text-neutral-500">Product not found.</Text>
         <TouchableOpacity
           onPress={() => router.back()}
@@ -31,7 +29,7 @@ export default function ProductDetails() {
         >
           <Text className="font-medium text-neutral-900">Go Back</Text>
         </TouchableOpacity>
-      </SafeAreaView>
+      </View>
     );
   }
 
@@ -45,14 +43,17 @@ export default function ProductDetails() {
             resizeMode="cover"
           />
 
-          <SafeAreaView className="absolute top-0 left-0 w-full px-6 pt-4">
+          <View
+            style={{ paddingTop: Math.max(insets.top, 16) }}
+            className="absolute top-0 left-0 w-full px-6"
+          >
             <TouchableOpacity
               onPress={() => router.back()}
               className="items-center justify-center w-12 h-12 rounded-full shadow-sm bg-white/90"
             >
               <ChevronLeft size={24} color="#171717" />
             </TouchableOpacity>
-          </SafeAreaView>
+          </View>
         </View>
 
         <View className="px-6 pt-8 pb-32">
@@ -102,7 +103,10 @@ export default function ProductDetails() {
         </View>
       </ScrollView>
 
-      <View className="absolute bottom-0 w-full px-6 py-5 pb-10 bg-white border-t border-neutral-100">
+      <View
+        style={{ paddingBottom: Math.max(insets.bottom, 20) }}
+        className="absolute bottom-0 w-full px-6 pt-5 bg-white border-t border-neutral-100"
+      >
         <TouchableOpacity
           className="items-center w-full py-4 shadow-sm bg-neutral-900 rounded-2xl"
           onPress={() => console.log("Added size", selectedSize, "to cart")}
