@@ -169,7 +169,7 @@ export default function CheckoutScreen() {
         className="px-6 pt-5 bg-white border-t border-neutral-100"
       >
         <TouchableOpacity
-          className="items-center w-full py-4 shadow-sm bg-neutral-900 rounded-2xl"
+          className="items-center w-full py-4  bg-neutral-900 rounded-2xl"
           onPress={onSubmit}
         >
           <Text style={{ fontFamily: "Inter_600SemiBold" }} className="text-lg text-white">

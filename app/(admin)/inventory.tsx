@@ -21,7 +21,7 @@ export default function AdminInventoryScreen() {
 
         <TouchableOpacity
           onPress={() => router.push("/(admin)/manage")}
-          className="items-center justify-center w-12 h-12 rounded-full shadow-sm bg-neutral-900"
+          className="items-center justify-center w-12 h-12 rounded-full  bg-neutral-900"
         >
           <Plus size={24} color="#ffffff" />
         </TouchableOpacity>
@@ -33,7 +33,7 @@ export default function AdminInventoryScreen() {
         contentContainerStyle={{ paddingHorizontal: 24, paddingBottom: 120 }}
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
-          <View className="flex-row items-center gap-4 p-4 mb-4 bg-white border shadow-sm rounded-2xl border-neutral-100">
+          <View className="flex-row items-center gap-4 p-4 mb-4 bg-white border  rounded-2xl border-neutral-100">
             <View className="w-20 h-20 overflow-hidden bg-neutral-50 rounded-xl">
               <Image
                 source={{ uri: item.image }}

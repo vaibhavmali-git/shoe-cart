@@ -188,7 +188,7 @@ export default function ManageProductScreen() {
         <View className="px-6 py-5 bg-white border-t border-neutral-100">
           <TouchableOpacity
             onPress={handleSubmit}
-            className="flex-row items-center justify-center w-full gap-2 py-4 shadow-sm bg-neutral-900 rounded-2xl"
+            className="flex-row items-center justify-center w-full gap-2 py-4  bg-neutral-900 rounded-2xl"
           >
             <Save size={20} color="#ffffff" />
             <Text

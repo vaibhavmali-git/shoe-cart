@@ -84,14 +84,14 @@ export default function ProductDetailsScreen() {
       <View className="px-6 py-3 flex-row justify-between items-center bg-[#f8f9fa] z-10">
         <TouchableOpacity
           onPress={() => router.back()}
-          className="items-center justify-center bg-white border rounded-full shadow-sm w-11 h-11 border-neutral-200"
+          className="items-center justify-center bg-white border rounded-full  w-11 h-11 border-neutral-200"
         >
           <ChevronLeft size={22} color="#171717" />
         </TouchableOpacity>
 
         <TouchableOpacity
           onPress={handleToggleFavorite}
-          className="items-center justify-center bg-white border rounded-full shadow-sm w-11 h-11 border-neutral-200"
+          className="items-center justify-center bg-white border rounded-full  w-11 h-11 border-neutral-200"
         >
           <Heart
             size={20}
@@ -102,7 +102,7 @@ export default function ProductDetailsScreen() {
       </View>
 
       <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
-        <View className="mx-6 h-80 bg-[#f5f5f4] rounded-3xl overflow-hidden border border-neutral-100 shadow-sm mb-6">
+        <View className="mx-6 h-80 bg-[#f5f5f4] rounded-3xl overflow-hidden border border-neutral-100  mb-6 mt-8">
           <Image
             source={{ uri: product.image }}
             className="w-full h-full"
@@ -110,7 +110,7 @@ export default function ProductDetailsScreen() {
           />
         </View>
 
-        <View className="p-6 mx-6 mb-6 bg-white border shadow-sm rounded-3xl border-neutral-100">
+        <View className="p-6 mx-6 mb-6">
           <View className="flex-row items-start justify-between mb-2">
             <View className="flex-1 pr-4">
               <Text
@@ -126,12 +126,7 @@ export default function ProductDetailsScreen() {
                 {product.name}
               </Text>
             </View>
-            <Text
-              style={{ fontFamily: "Inter_700Bold" }}
-              className="text-2xl text-neutral-900"
-            >
-              ${product.price.toFixed(2)}
-            </Text>
+           
           </View>
 
           <View className="h-[1px] bg-neutral-100 my-4" />
@@ -199,7 +194,7 @@ export default function ProductDetailsScreen() {
 
         <TouchableOpacity
           onPress={handleAddToCart}
-          className="px-8 py-4 shadow-sm bg-neutral-900 rounded-2xl"
+          className="px-8 py-4  bg-neutral-900 rounded-2xl"
         >
           <Text
             style={{ fontFamily: "Inter_600SemiBold" }}

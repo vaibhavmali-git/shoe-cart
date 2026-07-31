@@ -9,7 +9,7 @@ interface Props {
 
 export default function CartItemCard({ item, onRemove }: Props) {
   return (
-    <View className="flex-row items-center p-3 mb-4 bg-white border shadow-sm rounded-2xl border-neutral-100">
+    <View className="flex-row items-center p-3 mb-4 bg-white border  rounded-2xl border-neutral-100">
       <View className="h-24 w-24 rounded-xl overflow-hidden bg-[#f5f5f4] relative">
         <Image
           source={{ uri: item.product.image }}

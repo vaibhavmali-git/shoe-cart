@@ -23,7 +23,7 @@ export default function UserProfileScreen() {
         contentContainerStyle={{ paddingBottom: 120 }}
         showsVerticalScrollIndicator={false}
       >
-        <View className="p-2 mb-6 bg-white border shadow-sm rounded-3xl border-neutral-100">
+        <View className="p-2 mb-6 bg-white border  rounded-3xl border-neutral-100">
           <TouchableOpacity
             onPress={navigateToOrders}
             className="flex-row items-center justify-between p-3.5 border-b border-neutral-50"

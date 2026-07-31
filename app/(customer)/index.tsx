@@ -18,7 +18,7 @@ export default function CustomerShopScreen() {
         </Text>
 
         <View className="flex-row items-center mt-6">
-          <View className="flex-row items-center flex-1 px-4 bg-white border shadow-sm h-14 rounded-2xl border-neutral-100">
+          <View className="flex-row items-center flex-1 px-4 bg-white border h-14 rounded-2xl border-neutral-100">
             <Search size={20} color="#a3a3a3" />
             <TextInput
               placeholder="Search shoes, brands..."

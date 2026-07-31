@@ -36,7 +36,7 @@ export default function CartScreen() {
         </Text>
         <TouchableOpacity
           onPress={handleStartShopping}
-          className="px-8 py-4 shadow-sm bg-neutral-900 rounded-2xl"
+          className="px-8 py-4  bg-neutral-900 rounded-2xl"
         >
           <Text
             style={{ fontFamily: "Inter_600SemiBold" }}
@@ -66,7 +66,7 @@ export default function CartScreen() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingHorizontal: 24, paddingBottom: 120 }}
         renderItem={({ item }) => (
-          <View className="flex-row items-center gap-4 p-4 mb-4 bg-white border shadow-sm rounded-3xl border-neutral-100">
+          <View className="flex-row items-center gap-4 p-4 mb-4 bg-white border  rounded-3xl border-neutral-100">
             <View className="w-24 h-24 bg-[#f5f5f4] rounded-2xl overflow-hidden border border-neutral-50">
               <Image
                 source={{ uri: item.product.image }}
@@ -94,7 +94,7 @@ export default function CartScreen() {
                 <View className="flex-row items-center gap-3 p-1 bg-neutral-100 rounded-xl">
                   <TouchableOpacity
                     onPress={() => handleDecrement(item.id, item.quantity)}
-                    className="items-center justify-center bg-white rounded-lg shadow-sm w-7 h-7"
+                    className="items-center justify-center bg-white rounded-lg  w-7 h-7"
                   >
                     <Minus size={14} color="#171717" />
                   </TouchableOpacity>
@@ -108,7 +108,7 @@ export default function CartScreen() {
 
                   <TouchableOpacity
                     onPress={() => handleIncrement(item.id, item.quantity)}
-                    className="items-center justify-center bg-white rounded-lg shadow-sm w-7 h-7"
+                    className="items-center justify-center bg-white rounded-lg  w-7 h-7"
                   >
                     <Plus size={14} color="#171717" />
                   </TouchableOpacity>
@@ -175,7 +175,7 @@ export default function CartScreen() {
 
         <TouchableOpacity
           onPress={handleCheckout}
-          className="items-center w-full py-4 shadow-sm bg-neutral-900 rounded-2xl"
+          className="items-center w-full py-4  bg-neutral-900 rounded-2xl"
         >
           <Text
             style={{ fontFamily: "Inter_600SemiBold" }}

@@ -11,7 +11,7 @@ export default function ProductCard({ product, onPress }: ProductCardProps) {
     <TouchableOpacity
       onPress={onPress}
       activeOpacity={0.7}
-      className="flex-row items-center gap-5 p-4 mb-4 bg-white border shadow-sm rounded-3xl border-neutral-100"
+      className="flex-row items-center gap-5 p-4 mb-4 bg-white border  rounded-3xl border-neutral-100"
     >
       <View className="w-28 h-28 bg-[#f5f5f4] rounded-2xl overflow-hidden border border-neutral-100">
         <Image

@@ -49,7 +49,7 @@ export default function CustomerOrdersScreen() {
         contentContainerStyle={{ paddingHorizontal: 24, paddingBottom: 120 }}
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
-          <View className="p-5 mb-4 bg-white border shadow-sm rounded-3xl border-neutral-100">
+          <View className="p-5 mb-4 bg-white border  rounded-3xl border-neutral-100">
             <View className="flex-row items-center justify-between pb-3 mb-4 border-b border-neutral-100">
               <View>
                 <Text
