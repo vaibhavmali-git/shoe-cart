@@ -3,8 +3,8 @@
 A high-end, production-grade React Native application built for a seamless footwear shopping and store management experience. Designed with a clean, minimalist aesthetic inspired by modern high-density dashboards.
 
 <p align="center">
-  <img src="docs/Screenshot%202026-07-31%20at%2010.06.28%20PM.png" width="49%" alt="Shoe Cart Screenshot 1" />
-  <img src="docs/Screenshot%202026-07-31%20at%2010.06.54%20PM.png" width="49%" alt="Shoe Cart Screenshot 2" />
+  <img src="docs/screenshot1.png" width="49%" alt="Shoe Cart Screenshot 1" />
+  <img src="docs/screenshot2.png" width="49%" alt="Shoe Cart Screenshot 2" />
 </p>
 ---
 
