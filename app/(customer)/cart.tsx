@@ -1,89 +1,208 @@
-import { useRouter } from "expo-router";
-import { ShoppingBag } from "lucide-react-native";
-import { FlatList, Text, TouchableOpacity, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import CartItemCard from "../../src/components/CartItemCard";
+import { Href, router } from "expo-router";
+import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react-native";
+import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useAppDispatch, useAppSelector } from "../../src/store/hooks";
-import { removeFromCart } from "../../src/store/slices/cartSlice";
+import {
+    removeFromCart,
+    updateQuantity,
+} from "../../src/store/slices/cartSlice";
 
 export default function CartScreen() {
-  const insets = useSafeAreaInsets();
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector((state) => state.cart.items);
-  const router = useRouter();
-  const cartTotal = cartItems.reduce(
-    (total, item) => total + item.product.price * item.quantity,
+
+  const subtotal = cartItems.reduce(
+    (sum, item) => sum + item.product.price * item.quantity,
     0,
   );
-
-  const handleCheckout = () => {
-    router.push("/checkout");
-  };
+  const deliveryFee = cartItems.length > 0 ? 5.0 : 0;
+  const total = subtotal + deliveryFee;
 
   if (cartItems.length === 0) {
     return (
-      <View
-        style={{ paddingTop: insets.top }}
-        className="flex-1 bg-[#f5f5f4] items-center justify-center px-6"
-      >
-        <View className="items-center justify-center w-20 h-20 mb-6 rounded-full bg-neutral-200">
+      <SafeAreaView className="flex-1 bg-[#f8f9fa] items-center justify-center px-6">
+        <View className="items-center justify-center w-20 h-20 mb-6 rounded-full bg-neutral-100">
           <ShoppingBag size={32} color="#a3a3a3" />
         </View>
-        <Text className="mb-2 text-2xl font-bold text-neutral-900">
+        <Text
+          style={{ fontFamily: "Inter_700Bold" }}
+          className="mb-2 text-2xl text-neutral-900"
+        >
           Your cart is empty
         </Text>
-        <Text className="text-center text-neutral-500">
-          Looks like you haven&apos;t added any shoes to your cart yet.
+        <Text
+          style={{ fontFamily: "Inter_400Regular" }}
+          className="mb-8 text-center text-neutral-500"
+        >
+          Explore our catalog and find your next pair of shoes.
         </Text>
-      </View>
+        <TouchableOpacity
+          onPress={() => router.push("/(customer)")}
+          className="px-8 py-4 shadow-sm bg-neutral-900 rounded-2xl"
+        >
+          <Text
+            style={{ fontFamily: "Inter_600SemiBold" }}
+            className="text-base text-white"
+          >
+            Start Shopping
+          </Text>
+        </TouchableOpacity>
+      </SafeAreaView>
     );
   }
 
   return (
-    <View style={{ paddingTop: insets.top }} className="flex-1 bg-[#f5f5f4]">
-      <View className="px-6 pt-2 pb-4 border-b border-neutral-200">
-        <Text className="text-3xl font-bold tracking-tight text-neutral-900">
-          Your Cart
-        </Text>
-        <Text className="mt-1 text-sm font-medium text-neutral-500">
-          {cartItems.length} {cartItems.length === 1 ? "item" : "items"}
+    <SafeAreaView className="flex-1 bg-[#f8f9fa]">
+      <View className="px-6 pt-4 pb-4">
+        <Text
+          style={{ fontFamily: "Inter_700Bold" }}
+          className="text-4xl tracking-tight text-neutral-900"
+        >
+          My Cart
         </Text>
       </View>
 
       <FlatList
         data={cartItems}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <CartItemCard
-            item={item}
-            onRemove={(id) => dispatch(removeFromCart(id))}
-          />
-        )}
-        contentContainerStyle={{
-          paddingHorizontal: 24,
-          paddingTop: 24,
-          paddingBottom: 40,
-        }}
         showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingHorizontal: 24, paddingBottom: 20 }}
+        renderItem={({ item }) => (
+          <View className="flex-row items-center gap-4 p-4 mb-4 bg-white border shadow-sm rounded-3xl border-neutral-100">
+            <View className="w-24 h-24 bg-[#f5f5f4] rounded-2xl overflow-hidden border border-neutral-50">
+              <Image
+                source={{ uri: item.product.image }}
+                className="w-full h-full"
+                resizeMode="cover"
+              />
+            </View>
+
+            <View className="justify-center flex-1">
+              <Text
+                style={{ fontFamily: "Inter_700Bold" }}
+                className="text-base text-neutral-900 mb-0.5"
+                numberOfLines={1}
+              >
+                {item.product.name}
+              </Text>
+              <Text
+                style={{ fontFamily: "Inter_500Medium" }}
+                className="mb-2 text-xs text-neutral-400"
+              >
+                Size: {item.size} • ${item.product.price.toFixed(2)}
+              </Text>
+
+              <View className="flex-row items-center justify-between">
+                {/* Quantity Controls */}
+                <View className="flex-row items-center gap-3 p-1 bg-neutral-100 rounded-xl">
+                  <TouchableOpacity
+                    onPress={() =>
+                      dispatch(
+                        updateQuantity({
+                          id: item.id,
+                          quantity: Math.max(1, item.quantity - 1),
+                        }),
+                      )
+                    }
+                    className="items-center justify-center bg-white rounded-lg shadow-sm w-7 h-7"
+                  >
+                    <Minus size={14} color="#171717" />
+                  </TouchableOpacity>
+
+                  <Text
+                    style={{ fontFamily: "Inter_600SemiBold" }}
+                    className="text-sm text-neutral-900"
+                  >
+                    {item.quantity}
+                  </Text>
+
+                  <TouchableOpacity
+                    onPress={() =>
+                      dispatch(
+                        updateQuantity({
+                          id: item.id,
+                          quantity: item.quantity + 1,
+                        }),
+                      )
+                    }
+                    className="items-center justify-center bg-white rounded-lg shadow-sm w-7 h-7"
+                  >
+                    <Plus size={14} color="#171717" />
+                  </TouchableOpacity>
+                </View>
+
+                <TouchableOpacity
+                  onPress={() => dispatch(removeFromCart(item.id))}
+                  className="p-2"
+                >
+                  <Trash2 size={18} color="#ef4444" />
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        )}
       />
 
-      <View className="px-6 py-5 bg-white border-t border-neutral-100">
-        <View className="flex-row items-center justify-between mb-4">
-          <Text className="text-lg font-medium text-neutral-500">Total</Text>
-          <Text className="text-2xl font-bold text-neutral-900">
-            ${cartTotal}
-          </Text>
+      <View className="px-6 py-6 bg-white border-t shadow-lg border-neutral-100 rounded-t-3xl">
+        <View className="gap-2 mb-6">
+          <View className="flex-row justify-between">
+            <Text
+              style={{ fontFamily: "Inter_400Regular" }}
+              className="text-sm text-neutral-500"
+            >
+              Subtotal
+            </Text>
+            <Text
+              style={{ fontFamily: "Inter_600SemiBold" }}
+              className="text-sm text-neutral-900"
+            >
+              ${subtotal.toFixed(2)}
+            </Text>
+          </View>
+          <View className="flex-row justify-between">
+            <Text
+              style={{ fontFamily: "Inter_400Regular" }}
+              className="text-sm text-neutral-500"
+            >
+              Delivery Fee
+            </Text>
+            <Text
+              style={{ fontFamily: "Inter_600SemiBold" }}
+              className="text-sm text-neutral-900"
+            >
+              ${deliveryFee.toFixed(2)}
+            </Text>
+          </View>
+          <View className="h-[1px] bg-neutral-100 my-1" />
+          <View className="flex-row justify-between">
+            <Text
+              style={{ fontFamily: "Inter_700Bold" }}
+              className="text-base text-neutral-900"
+            >
+              Total
+            </Text>
+            <Text
+              style={{ fontFamily: "Inter_700Bold" }}
+              className="text-xl text-neutral-900"
+            >
+              ${total.toFixed(2)}
+            </Text>
+          </View>
         </View>
 
         <TouchableOpacity
+          onPress={() => router.push("/checkout" as Href)}
           className="items-center w-full py-4 shadow-sm bg-neutral-900 rounded-2xl"
-          onPress={handleCheckout}
         >
-          <Text className="text-lg font-medium text-white">
+          <Text
+            style={{ fontFamily: "Inter_600SemiBold" }}
+            className="text-base text-white"
+          >
             Proceed to Checkout
           </Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
