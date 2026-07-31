@@ -38,6 +38,13 @@ export default function AdminLayout() {
           ),
         }}
       />
+
+      <Tabs.Screen
+        name="manage"
+        options={{
+          href: null,
+        }}
+      />
     </Tabs>
   );
 }
