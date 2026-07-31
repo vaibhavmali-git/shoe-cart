@@ -10,7 +10,7 @@ export function useAdminProfile() {
   };
 
   const navigateToShoes = () => {
-    router.push("/(admin)/shoes" as Href);
+    router.push("/(admin)/inventory" as Href);
   };
 
   const navigateToCustomerStore = () => {

@@ -1,12 +1,16 @@
 import { Tabs } from "expo-router";
 import { Home, ListOrdered, ShoppingBag, User } from "lucide-react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function CustomerLayout() {
+  const insets = useSafeAreaInsets();
+  const bottomPadding = Math.max(insets.bottom, 12);
+
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarShowLabel: false,
+        tabBarShowLabel: true, 
         tabBarActiveTintColor: "#171717",
         tabBarInactiveTintColor: "#a3a3a3",
         tabBarStyle: {
@@ -15,8 +19,14 @@ export default function CustomerLayout() {
           borderTopColor: "#f5f5f4",
           elevation: 0,
           shadowOpacity: 0,
-          height: 85,
-          paddingBottom: 25,
+          height: 64 + bottomPadding,
+          paddingBottom: bottomPadding,
+          paddingTop: 8,
+        },
+        tabBarLabelStyle: {
+          fontSize: 11,
+          fontWeight: "600",
+          marginTop: 2,
         },
       }}
     >
@@ -25,7 +35,7 @@ export default function CustomerLayout() {
         options={{
           title: "Home",
           tabBarIcon: ({ color }) => (
-            <Home size={24} color={color} strokeWidth={2.5} />
+            <Home size={22} color={color} strokeWidth={2} /> 
           ),
         }}
       />
@@ -34,7 +44,7 @@ export default function CustomerLayout() {
         options={{
           title: "Cart",
           tabBarIcon: ({ color }) => (
-            <ShoppingBag size={24} color={color} strokeWidth={2.5} />
+            <ShoppingBag size={22} color={color} strokeWidth={2} />
           ),
         }}
       />
@@ -43,7 +53,7 @@ export default function CustomerLayout() {
         options={{
           title: "Orders",
           tabBarIcon: ({ color }) => (
-            <ListOrdered size={24} color={color} strokeWidth={2.5} />
+            <ListOrdered size={22} color={color} strokeWidth={2} />
           ),
         }}
       />
@@ -52,7 +62,7 @@ export default function CustomerLayout() {
         options={{
           title: "Profile",
           tabBarIcon: ({ color }) => (
-            <User size={24} color={color} strokeWidth={2.5} />
+            <User size={22} color={color} strokeWidth={2} />
           ),
         }}
       />

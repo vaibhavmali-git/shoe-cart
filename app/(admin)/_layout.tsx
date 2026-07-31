@@ -1,12 +1,16 @@
 import { Tabs } from "expo-router";
 import { Layers, PackageCheck, User } from "lucide-react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function AdminLayout() {
+  const insets = useSafeAreaInsets();
+  const bottomPadding = Math.max(insets.bottom, 12);
+
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarShowLabel: false,
+        tabBarShowLabel: true, // Enabled labels for clear navigation
         tabBarActiveTintColor: "#171717",
         tabBarInactiveTintColor: "#a3a3a3",
         tabBarStyle: {
@@ -15,8 +19,15 @@ export default function AdminLayout() {
           borderTopColor: "#f5f5f4",
           elevation: 0,
           shadowOpacity: 0,
-          height: 85,
-          paddingBottom: 25,
+          // Dynamically scale height to clear the gesture bar
+          height: 64 + bottomPadding,
+          paddingBottom: bottomPadding,
+          paddingTop: 8,
+        },
+        tabBarLabelStyle: {
+          fontSize: 11,
+          fontWeight: "600",
+          marginTop: 2,
         },
       }}
     >
@@ -25,7 +36,7 @@ export default function AdminLayout() {
         options={{
           title: "Manage Orders",
           tabBarIcon: ({ color }) => (
-            <PackageCheck size={24} color={color} strokeWidth={2.5} />
+            <PackageCheck size={22} color={color} strokeWidth={2} /> // Subtler stroke width
           ),
         }}
       />
@@ -34,7 +45,7 @@ export default function AdminLayout() {
         options={{
           title: "Inventory",
           tabBarIcon: ({ color }) => (
-            <Layers size={24} color={color} strokeWidth={2.5} />
+            <Layers size={22} color={color} strokeWidth={2} />
           ),
         }}
       />
@@ -43,7 +54,7 @@ export default function AdminLayout() {
         options={{
           title: "Admin Profile",
           tabBarIcon: ({ color }) => (
-            <User size={24} color={color} strokeWidth={2.5} />
+            <User size={22} color={color} strokeWidth={2} />
           ),
         }}
       />
