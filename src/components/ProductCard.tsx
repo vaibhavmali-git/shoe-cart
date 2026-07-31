@@ -13,7 +13,6 @@ export default function ProductCard({ product, onPress }: ProductCardProps) {
       activeOpacity={0.7}
       className="flex-row items-center gap-5 p-4 mb-4 bg-white border shadow-sm rounded-3xl border-neutral-100"
     >
-      {/* Image Container filled completely */}
       <View className="w-28 h-28 bg-[#f5f5f4] rounded-2xl overflow-hidden border border-neutral-100">
         <Image
           source={{ uri: product.image }}

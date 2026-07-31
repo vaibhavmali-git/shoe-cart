@@ -81,7 +81,6 @@ export default function ProductDetailsScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-[#f8f9fa]" edges={["top"]}>
-      {/* Top Header Bar */}
       <View className="px-6 py-3 flex-row justify-between items-center bg-[#f8f9fa] z-10">
         <TouchableOpacity
           onPress={() => router.back()}

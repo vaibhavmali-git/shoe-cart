@@ -1,16 +1,16 @@
 import { Href, router } from "expo-router";
 import {
     ChevronRight,
+    Layers,
     LogOut,
     Mail,
-    Package,
-    Shield,
-    User,
+    PackageCheck,
+    ShieldCheck,
 } from "lucide-react-native";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function ProfileScreen() {
+export default function AdminProfileScreen() {
   const handleLogout = () => {
     router.replace("/" as Href);
   };
@@ -22,21 +22,21 @@ export default function ProfileScreen() {
           style={{ fontFamily: "Inter_700Bold" }}
           className="text-4xl tracking-tight text-neutral-900"
         >
-          Profile
+          Admin Profile
         </Text>
       </View>
 
       <ScrollView className="px-6" showsVerticalScrollIndicator={false}>
         <View className="flex-row items-center gap-4 p-6 mb-6 bg-white border shadow-sm rounded-3xl border-neutral-100">
           <View className="items-center justify-center w-16 h-16 bg-neutral-900 rounded-2xl">
-            <User size={30} color="#ffffff" />
+            <ShieldCheck size={30} color="#ffffff" />
           </View>
           <View className="flex-1">
             <Text
               style={{ fontFamily: "Inter_700Bold" }}
               className="mb-1 text-xl text-neutral-900"
             >
-              Vaibhav Mali
+              Store Administrator
             </Text>
             <View className="flex-row items-center gap-1.5">
               <Mail size={14} color="#a3a3a3" />
@@ -44,7 +44,7 @@ export default function ProfileScreen() {
                 style={{ fontFamily: "Inter_400Regular" }}
                 className="text-sm text-neutral-500"
               >
-                vaibhav@shoecart.com
+                admin@shoecart.com
               </Text>
             </View>
           </View>
@@ -52,36 +52,54 @@ export default function ProfileScreen() {
 
         <View className="p-3 mb-6 bg-white border shadow-sm rounded-3xl border-neutral-100">
           <TouchableOpacity
-            onPress={() => router.push("/(customer)/orders" as Href)}
+            onPress={() => router.push("/(admin)/orders" as Href)}
             className="flex-row items-center justify-between p-4 border-b border-neutral-50"
           >
             <View className="flex-row items-center gap-3">
               <View className="items-center justify-center w-10 h-10 bg-neutral-50 rounded-xl">
-                <Package size={20} color="#171717" />
+                <PackageCheck size={20} color="#171717" />
               </View>
               <Text
                 style={{ fontFamily: "Inter_600SemiBold" }}
                 className="text-base text-neutral-900"
               >
-                My Orders
+                Manage Orders Table
               </Text>
             </View>
             <ChevronRight size={18} color="#a3a3a3" />
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => router.replace("/(admin)/orders" as Href)}
-            className="flex-row items-center justify-between p-4"
+            onPress={() => router.push("/(admin)/shoes" as Href)}
+            className="flex-row items-center justify-between p-4 border-b border-neutral-50"
           >
             <View className="flex-row items-center gap-3">
               <View className="items-center justify-center w-10 h-10 bg-neutral-50 rounded-xl">
-                <Shield size={20} color="#171717" />
+                <Layers size={20} color="#171717" />
               </View>
               <Text
                 style={{ fontFamily: "Inter_600SemiBold" }}
                 className="text-base text-neutral-900"
               >
-                Switch to Admin Portal
+                Manage Shoe Inventory
+              </Text>
+            </View>
+            <ChevronRight size={18} color="#a3a3a3" />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => router.replace("/(customer)" as Href)}
+            className="flex-row items-center justify-between p-4"
+          >
+            <View className="flex-row items-center gap-3">
+              <View className="items-center justify-center w-10 h-10 bg-neutral-50 rounded-xl">
+                <ShieldCheck size={20} color="#171717" />
+              </View>
+              <Text
+                style={{ fontFamily: "Inter_600SemiBold" }}
+                className="text-base text-neutral-900"
+              >
+                Switch to Customer Store
               </Text>
             </View>
             <ChevronRight size={18} color="#a3a3a3" />
@@ -97,7 +115,7 @@ export default function ProfileScreen() {
             style={{ fontFamily: "Inter_600SemiBold" }}
             className="text-base text-red-600"
           >
-            Sign Out
+            Exit Admin Portal
           </Text>
         </TouchableOpacity>
       </ScrollView>

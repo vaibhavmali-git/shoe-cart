@@ -94,7 +94,6 @@ export default function CartScreen() {
               </Text>
 
               <View className="flex-row items-center justify-between">
-                {/* Quantity Controls */}
                 <View className="flex-row items-center gap-3 p-1 bg-neutral-100 rounded-xl">
                   <TouchableOpacity
                     onPress={() =>

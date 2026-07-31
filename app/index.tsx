@@ -1,53 +1,89 @@
-import { useRouter } from "expo-router";
-import { useEffect } from "react";
+import { Href, router } from "expo-router";
+import { ShieldCheck, ShoppingBag } from "lucide-react-native";
 import { Text, TouchableOpacity, View } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../src/store";
-import { setRole } from "../src/store/slices/authSlice";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function RoleSelectionScreen() {
-  const dispatch = useDispatch();
-  const router = useRouter();
-  const currentRole = useSelector((state: RootState) => state.auth.role);
-
-  useEffect(() => {
-    if (currentRole === "customer") {
-      router.replace("/(customer)");
-    } else if (currentRole === "admin") {
-      router.replace("/(admin)/orders");
-    }
-  }, [currentRole, router]);
-
   return (
-    <View className="flex-1 items-center justify-center bg-[#f5f5f4] px-6">
-      <View className="items-center mb-12">
-        <Text className="text-4xl font-bold tracking-tight text-neutral-900">
-          Shoe Cart
+    <SafeAreaView className="flex-1 bg-[#f8f9fa] justify-between px-8 py-12">
+      <View className="pt-8">
+        <Text
+          style={{ fontFamily: "Inter_700Bold" }}
+          className="mb-3 text-5xl tracking-tight text-neutral-900"
+        >
+          Shoe Cart.
         </Text>
-        <Text className="mt-2 text-base text-neutral-500">
-          Choose your experience
+        <Text
+          style={{ fontFamily: "Inter_400Regular" }}
+          className="text-base leading-relaxed text-neutral-500"
+        >
+          Select your portal to experience the ultimate footwear shopping and
+          inventory platform.
         </Text>
       </View>
 
-      <View className="w-full gap-4">
+      <View className="gap-4 my-auto">
         <TouchableOpacity
-          className="items-center w-full py-4 shadow-sm bg-neutral-900 rounded-2xl"
-          onPress={() => dispatch(setRole("customer"))}
+          onPress={() => router.push("/(customer)" as Href)}
+          activeOpacity={0.8}
+          className="flex-row items-center justify-between p-6 shadow-sm bg-neutral-900 rounded-3xl"
         >
-          <Text className="text-lg font-medium text-white">
-            Continue as Customer
-          </Text>
+          <View className="flex-row items-center gap-4">
+            <View className="items-center justify-center w-12 h-12 bg-neutral-800 rounded-2xl">
+              <ShoppingBag size={22} color="#ffffff" />
+            </View>
+            <View>
+              <Text
+                style={{ fontFamily: "Inter_700Bold" }}
+                className="text-white text-lg mb-0.5"
+              >
+                Customer Store
+              </Text>
+              <Text
+                style={{ fontFamily: "Inter_400Regular" }}
+                className="text-xs text-neutral-400"
+              >
+                Browse shoes, add to cart & buy
+              </Text>
+            </View>
+          </View>
         </TouchableOpacity>
 
         <TouchableOpacity
-          className="items-center w-full py-4 bg-white border shadow-sm border-neutral-200 rounded-2xl"
-          onPress={() => dispatch(setRole("admin"))}
+          onPress={() => router.push("/(admin)/orders" as Href)}
+          activeOpacity={0.8}
+          className="flex-row items-center justify-between p-6 bg-white border shadow-sm rounded-3xl border-neutral-200"
         >
-          <Text className="text-lg font-medium text-neutral-900">
-            Enter as Admin
-          </Text>
+          <View className="flex-row items-center gap-4">
+            <View className="items-center justify-center w-12 h-12 bg-neutral-100 rounded-2xl">
+              <ShieldCheck size={22} color="#171717" />
+            </View>
+            <View>
+              <Text
+                style={{ fontFamily: "Inter_700Bold" }}
+                className="text-neutral-900 text-lg mb-0.5"
+              >
+                Admin Dashboard
+              </Text>
+              <Text
+                style={{ fontFamily: "Inter_400Regular" }}
+                className="text-xs text-neutral-500"
+              >
+                Manage inventory & view orders
+              </Text>
+            </View>
+          </View>
         </TouchableOpacity>
       </View>
-    </View>
+
+      <View className="items-center">
+        <Text
+          style={{ fontFamily: "Inter_500Medium" }}
+          className="text-xs tracking-widest uppercase text-neutral-400"
+        >
+          React Native Assessment App
+        </Text>
+      </View>
+    </SafeAreaView>
   );
 }

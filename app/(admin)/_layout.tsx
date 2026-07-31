@@ -1,5 +1,5 @@
 import { Tabs } from "expo-router";
-import { Layers, PackageCheck } from "lucide-react-native";
+import { Layers, PackageCheck, User } from "lucide-react-native";
 
 export default function AdminLayout() {
   return (
@@ -38,7 +38,15 @@ export default function AdminLayout() {
           ),
         }}
       />
-
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: "Admin Profile",
+          tabBarIcon: ({ color }) => (
+            <User size={24} color={color} strokeWidth={2.5} />
+          ),
+        }}
+      />
       <Tabs.Screen
         name="manage"
         options={{
