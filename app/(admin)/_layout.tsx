@@ -30,9 +30,9 @@ export default function AdminLayout() {
         }}
       />
       <Tabs.Screen
-        name="shoes"
+        name="inventory"
         options={{
-          title: "Manage Shoes",
+          title: "Inventory",
           tabBarIcon: ({ color }) => (
             <Layers size={24} color={color} strokeWidth={2.5} />
           ),

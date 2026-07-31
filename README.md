@@ -1,50 +1,94 @@
-# Welcome to your Expo app 👋
+# Shoe Cart
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A high-end, production-grade React Native application built for a seamless footwear shopping and store management experience. Designed with a clean, minimalist aesthetic inspired by modern high-density dashboards.
 
-## Get started
+---
 
-1. Install dependencies
+## Features
 
-   ```bash
-   npm install
-   ```
+### Customer Store
 
-2. Start the app
+- **Discover & Search:** Instant product filtering by name and brand with a clean search interface.
+- **Product Details:** Immersive image display with cover scaling, size selection, and interactive favorite toggling.
+- **Cart & Checkout:** Full cart management with real-time subtotal/delivery calculations, quantity controls, and a simulated checkout flow.
+- **Order History:** Clean, spacious order cards showing item thumbnails, quantities, sizes, pricing, and live status badges.
 
-   ```bash
-   npx expo start
-   ```
+### Admin Dashboard
 
-In the output, you'll find options to open the app in a
+- **Inventory Management (`inventory.tsx`):** View the complete product catalog, track stock, and manage items.
+- **Add & Edit Products (`manage.tsx`):** Robust form validation using Zod and React Hook Form to manage brand names, pricing, image URLs, descriptions, and available sizes.
+- **Orders Management (`orders.tsx`):** Comprehensive view of customer purchases with interactive status-cycling (Processing $\rightarrow$ Shipped $\rightarrow$ Delivered).
+- **Role Switching:** Seamlessly switch between the Customer Store and Admin Portal via the profile/settings tab.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Tech Stack
 
-## Get a fresh project
+- **Framework:** React Native with Expo & Expo Router (File-based routing)
+- **Language:** TypeScript (Strict typing, zero `any` types)
+- **State Management:** Redux Toolkit (`@reduxjs/toolkit`)
+- **Styling:** NativeWind (Tailwind CSS for React Native)
+- **Form Validation:** React Hook Form & Zod
+- **Icons:** Lucide React Native
+- **Typography:** Inter Font Family (`Inter_400Regular`, `Inter_500Medium`, `Inter_600SemiBold`, `Inter_700Bold`)
 
-When you're ready, run:
+---
 
-```bash
-npm run reset-project
+## Project Architecture
+
+The project follows a clean separation-of-concerns pattern where UI components remain strictly "dumb" (presentation-only) and all business logic, state selectors, and form actions are isolated into custom hooks.
+
+```text
+shoe-cart/
+├── app/                  # Expo Router file-based screens
+│   ├── (admin)/          # Admin portal tabs & screens (orders, inventory, profile, manage)
+│   ├── (customer)/       # Customer store tabs & screens (shop, cart, orders, profile)
+│   ├── product/          # Product details & checkout screens
+│   └── index.tsx         # Root role-selection screen
+├── src/
+│   ├── components/       # Reusable UI components (ProductCard, etc.)
+│   ├── hooks/            # Custom domain hooks (useCart, useProductSearch, useAdminOrders, etc.)
+│   ├── store/            # Redux store configuration & slices (cart, orders, products)
+│   └── types/            # TypeScript interfaces & definitions
+└── assets/               # Images and fonts
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+---
 
-## Learn more
+## Getting Started & How to Run
 
-To learn more about developing your project with Expo, look at the following resources:
+Follow these steps to get the app running locally on your machine:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### Prerequisites
 
-## Join the community
+Make sure you have the following installed on your system:
 
-Join our community of developers creating universal apps.
+- Node.js (v18 or newer recommended)
+- npm or yarn
+- Expo Go app downloaded on your physical iOS or Android mobile device, or an active iOS Simulator / Android Emulator.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+### Step-by-Step Setup
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/your-username/shoe-cart.git
+cd shoe-cart
+```
+
+2. Install project dependencies:
+
+```bash
+npm install
+```
+
+3. Start the Expo development server:
+
+```bash
+npx expo start
+```
+
+4. Launch the application:
+   - On an iOS Simulator: Press `i` in your terminal window.
+   - On an Android Emulator: Press `a` in your terminal window.
+   - On a Physical Device: Open the Expo Go camera (iOS) or the in-app QR scanner (Android) to scan the QR code displayed in your terminal.

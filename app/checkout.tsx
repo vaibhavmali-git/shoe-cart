@@ -1,9 +1,6 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "expo-router";
 import { ChevronLeft } from "lucide-react-native";
-import { Controller, useForm } from "react-hook-form";
+import { Controller } from "react-hook-form";
 import {
-    Alert,
     KeyboardAvoidingView,
     Platform,
     ScrollView,
@@ -13,69 +10,11 @@ import {
     View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { z } from "zod";
-import { useAppDispatch, useAppSelector } from "../src/store/hooks";
-import { clearCart } from "../src/store/slices/cartSlice";
-import { placeOrder } from "../src/store/slices/orderSlice";
-
-const checkoutSchema = z.object({
-  name: z.string().min(2, "Name is required"),
-  address: z.string().min(5, "Full shipping address is required"),
-  cardNumber: z.string().length(16, "Card must be exactly 16 digits"),
-  expiry: z.string().regex(/^(0[1-9]|1[0-2])\/\d{2}$/, "Use MM/YY format"),
-  cvv: z.string().length(3, "CVV must be 3 digits"),
-});
-
-type CheckoutFormData = z.infer<typeof checkoutSchema>;
+import { useCheckout } from "../src/hooks/useCheckout";
 
 export default function CheckoutScreen() {
   const insets = useSafeAreaInsets();
-  const router = useRouter();
-  const dispatch = useAppDispatch();
-  const cartItems = useAppSelector((state) => state.cart.items);
-
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<CheckoutFormData>({
-    resolver: zodResolver(checkoutSchema),
-    defaultValues: {
-      name: "",
-      address: "",
-      cardNumber: "",
-      expiry: "",
-      cvv: "",
-    },
-  });
-
-  const onSubmit = (data: CheckoutFormData) => {
-    // Calculate total
-    const total = cartItems.reduce(
-      (sum, item) => sum + item.product.price * item.quantity,
-      0,
-    );
-
-    // Create the order object
-    const newOrder = {
-      id: `ORD-${Date.now()}`,
-      items: cartItems,
-      total,
-      date: new Date().toISOString(),
-      status: "Processing" as const,
-      customerName: data.name,
-    };
-
-    // Save to order history, then clear the cart
-    dispatch(placeOrder(newOrder));
-    dispatch(clearCart());
-
-    Alert.alert(
-      "Payment Successful",
-      `Thank you for your order, ${data.name}!`,
-      [{ text: "Back to Home", onPress: () => router.replace("/(customer)") }],
-    );
-  };
+  const { control, errors, onSubmit, handleBack } = useCheckout();
 
   return (
     <KeyboardAvoidingView
@@ -86,7 +25,7 @@ export default function CheckoutScreen() {
         style={{ paddingTop: insets.top }}
         className="flex-row items-center px-4 pb-4 bg-white border-b border-neutral-200"
       >
-        <TouchableOpacity onPress={() => router.back()} className="p-2">
+        <TouchableOpacity onPress={handleBack} className="p-2">
           <ChevronLeft size={28} color="#171717" />
         </TouchableOpacity>
         <Text className="ml-2 text-xl font-bold text-neutral-900">
@@ -225,7 +164,7 @@ export default function CheckoutScreen() {
       >
         <TouchableOpacity
           className="items-center w-full py-4 shadow-sm bg-neutral-900 rounded-2xl"
-          onPress={handleSubmit(onSubmit)}
+          onPress={onSubmit}
         >
           <Text className="text-lg font-medium text-white">Pay Now</Text>
         </TouchableOpacity>
