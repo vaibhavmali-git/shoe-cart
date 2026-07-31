@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { initialProducts } from '../../data/mockProducts';
-import { Product } from '../../types';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { mockProducts as initialProducts } from "../../data/mockProducts";
+import { Product } from "../../types";
 
 interface ProductState {
   items: Product[];
@@ -11,14 +11,14 @@ const initialState: ProductState = {
 };
 
 const productSlice = createSlice({
-  name: 'products',
+  name: "products",
   initialState,
   reducers: {
-    setProducts: (state, action: PayloadAction<Product[]>) => {
-      state.items = action.payload;
+    addProduct: (state, action: PayloadAction<Product>) => {
+      state.items.unshift(action.payload);
     },
   },
 });
 
-export const { setProducts } = productSlice.actions;
+export const { addProduct } = productSlice.actions;
 export default productSlice.reducer;

@@ -1,5 +1,5 @@
 import { Tabs } from "expo-router";
-import { Home, ListOrdered, ShoppingBag } from "lucide-react-native";
+import { Home, ListOrdered, ShoppingBag, User } from "lucide-react-native";
 
 export default function CustomerLayout() {
   return (
@@ -44,6 +44,15 @@ export default function CustomerLayout() {
           title: "Orders",
           tabBarIcon: ({ color }) => (
             <ListOrdered size={24} color={color} strokeWidth={2.5} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: "Profile",
+          tabBarIcon: ({ color }) => (
+            <User size={24} color={color} strokeWidth={2.5} />
           ),
         }}
       />
