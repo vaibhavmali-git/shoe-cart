@@ -10,7 +10,7 @@ export default function AdminLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarShowLabel: true, // Enabled labels for clear navigation
+        tabBarShowLabel: true, 
         tabBarActiveTintColor: "#171717",
         tabBarInactiveTintColor: "#a3a3a3",
         tabBarStyle: {
@@ -19,7 +19,6 @@ export default function AdminLayout() {
           borderTopColor: "#f5f5f4",
           elevation: 0,
           shadowOpacity: 0,
-          // Dynamically scale height to clear the gesture bar
           height: 64 + bottomPadding,
           paddingBottom: bottomPadding,
           paddingTop: 8,
@@ -36,7 +35,7 @@ export default function AdminLayout() {
         options={{
           title: "Manage Orders",
           tabBarIcon: ({ color }) => (
-            <PackageCheck size={22} color={color} strokeWidth={2} /> // Subtler stroke width
+            <PackageCheck size={22} color={color} strokeWidth={2} /> 
           ),
         }}
       />

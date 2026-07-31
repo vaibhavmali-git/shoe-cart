@@ -15,7 +15,7 @@ export default function UserProfileScreen() {
     useUserAccount();
 
   return (
-    <SafeAreaView className="flex-1 bg-[#f8f9fa]">
+    <SafeAreaView className="flex-1 bg-[#f8f9fa]" edges={["top"]}>
       <View className="px-6 pt-4 pb-6">
         <Text
           style={{ fontFamily: "Inter_700Bold" }}
@@ -25,7 +25,11 @@ export default function UserProfileScreen() {
         </Text>
       </View>
 
-      <ScrollView className="px-6" showsVerticalScrollIndicator={false}>
+      <ScrollView
+        className="px-6"
+        contentContainerStyle={{ paddingBottom: 120 }}
+        showsVerticalScrollIndicator={false}
+      >
         <View className="flex-row items-center gap-4 p-6 mb-6 bg-white border shadow-sm rounded-3xl border-neutral-100">
           <View className="items-center justify-center w-16 h-16 bg-neutral-900 rounded-2xl">
             <User size={30} color="#ffffff" />

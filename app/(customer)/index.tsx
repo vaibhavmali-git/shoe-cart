@@ -5,15 +5,10 @@ import ProductCard from "../../src/components/ProductCard";
 import { useProductSearch } from "../../src/hooks/useProductSearch";
 
 export default function CustomerShopScreen() {
-  const {
-    searchQuery,
-    setSearchQuery,
-    filteredProducts,
-    navigateToProductDetails,
-  } = useProductSearch();
+  const { searchQuery, setSearchQuery, filteredProducts, navigateToProductDetails } = useProductSearch();
 
   return (
-    <SafeAreaView className="flex-1 bg-[#f8f9fa]">
+    <SafeAreaView className="flex-1 bg-[#f8f9fa]" edges={['top']}>
       <View className="px-6 pt-4 pb-4">
         <Text
           style={{ fontFamily: "Inter_700Bold" }}
@@ -46,7 +41,7 @@ export default function CustomerShopScreen() {
             onPress={() => navigateToProductDetails(item.id)}
           />
         )}
-        contentContainerStyle={{ paddingHorizontal: 24, paddingBottom: 40 }}
+        contentContainerStyle={{ paddingHorizontal: 24, paddingBottom: 120 }} 
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={() => (
           <View className="items-center justify-center pt-12">

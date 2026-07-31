@@ -1,38 +1,31 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { router, useLocalSearchParams } from "expo-router";
 import { useEffect } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useForm } from "react-hook-form";
-import { Alert } from "react-native";
 import { z } from "zod";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { addProduct, editProduct } from "../store/slices/productSlice";
+import { addProduct, updateProduct } from "../store/slices/productSlice";
 
 const productSchema = z.object({
-  name: z.string().min(2, "Product name is required"),
+  name: z.string().min(2, "Name is required"),
   brand: z.string().min(2, "Brand is required"),
-  price: z
-    .string()
-    .regex(/^\d+(\.\d{1,2})?$/, "Enter a valid price (e.g. 150 or 150.99)"),
-  image: z.string().url("Must be a valid image URL"),
-  description: z.string().min(10, "Description must be at least 10 characters"),
-  sizes: z
-    .string()
-    .regex(
-      /^[\d,\s\.]+$/,
-      "Enter numeric sizes separated by commas (e.g. 8, 9, 10)",
-    ),
+  price: z.string().min(1, "Price is required"),
+  image: z.string().url("Must be a valid URL"),
+  sizes: z.string().min(1, "At least one size is required"),
+  description: z.string().min(5, "Description is required"),
 });
 
-export type ProductFormData = z.infer<typeof productSchema>;
+type ProductFormData = z.infer<typeof productSchema>;
 
 export function useManageProduct() {
-  const { id } = useLocalSearchParams<{ id: string }>();
+  const router = useRouter();
   const dispatch = useAppDispatch();
-  const existingProduct = useAppSelector((state) =>
-    state.products.items.find((p) => p.id === id),
-  );
+  const params = useLocalSearchParams();
+  const productId = params.id as string | undefined;
+  const isEditing = !!productId;
 
-  const isEditing = !!id;
+  const products = useAppSelector((state) => state.products.items);
+  const existingProduct = products.find((p) => p.id === productId);
 
   const {
     control,
@@ -46,70 +39,62 @@ export function useManageProduct() {
       brand: "",
       price: "",
       image: "",
-      description: "",
       sizes: "",
+      description: "",
     },
   });
 
   useEffect(() => {
-    if (isEditing && existingProduct) {
+    if (existingProduct) {
       reset({
         name: existingProduct.name,
         brand: existingProduct.brand,
         price: existingProduct.price.toString(),
         image: existingProduct.image,
-        description: existingProduct.description,
         sizes: existingProduct.sizes.join(", "),
-      });
-    } else {
-      reset({
-        name: "",
-        brand: "",
-        price: "",
-        image: "",
-        description: "",
-        sizes: "",
+        description: existingProduct.description,
       });
     }
-  }, [id, existingProduct, isEditing, reset]);
+  }, [existingProduct, reset]);
 
   const onSubmit = (data: ProductFormData) => {
-    const sizeArray = data.sizes
+    const formattedSizes = data.sizes
       .split(",")
-      .map((size) => parseFloat(size.trim()))
-      .filter((size) => !isNaN(size));
+      .map((s) => Number(s.trim()))
+      .filter((n) => !isNaN(n));
+      
+    const parsedPrice = parseFloat(data.price) || 0;
 
-    if (sizeArray.length === 0) {
-      Alert.alert(
-        "Invalid Sizes",
-        "Please provide at least one valid numeric size.",
+    if (isEditing && productId) {
+      dispatch(
+        updateProduct({
+          id: productId,
+          name: data.name,
+          brand: data.brand,
+          price: parsedPrice,
+          image: data.image,
+          sizes: formattedSizes,
+          description: data.description,
+        })
       );
-      return;
-    }
-
-    const productData = {
-      id: isEditing ? existingProduct!.id : `PROD-${Date.now()}`,
-      name: data.name,
-      brand: data.brand.toUpperCase(),
-      price: parseFloat(data.price),
-      image: data.image,
-      description: data.description,
-      sizes: sizeArray,
-    };
-
-    if (isEditing) {
-      dispatch(editProduct(productData));
-      Alert.alert("Success", "Product updated successfully!");
     } else {
-      dispatch(addProduct(productData));
-      Alert.alert("Success", "Product added to catalog!");
+      const newProduct = {
+        id: `prod-${Date.now()}`,
+        name: data.name,
+        brand: data.brand,
+        price: parsedPrice,
+        image: data.image,
+        sizes: formattedSizes,
+        description: data.description,
+      };
+      dispatch(addProduct(newProduct));
     }
 
-    router.navigate("/(admin)/shoes");
+    router.replace("/(admin)/inventory");
   };
 
   const handleBack = () => {
-    router.navigate("/(admin)/shoes");
+    router.replace("/(admin)/inventory");
   };
 
   return {

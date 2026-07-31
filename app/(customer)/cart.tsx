@@ -18,7 +18,7 @@ export default function CartScreen() {
 
   if (cartItems.length === 0) {
     return (
-      <SafeAreaView className="flex-1 bg-[#f8f9fa] items-center justify-center px-6">
+      <SafeAreaView className="flex-1 bg-[#f8f9fa] items-center justify-center px-6" edges={['top']}>
         <View className="items-center justify-center w-20 h-20 mb-6 rounded-full bg-neutral-100">
           <ShoppingBag size={32} color="#a3a3a3" />
         </View>
@@ -50,7 +50,7 @@ export default function CartScreen() {
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-[#f8f9fa]">
+    <SafeAreaView className="flex-1 bg-[#f8f9fa]" edges={['top']}>
       <View className="px-6 pt-4 pb-4">
         <Text
           style={{ fontFamily: "Inter_700Bold" }}
@@ -64,7 +64,7 @@ export default function CartScreen() {
         data={cartItems}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingHorizontal: 24, paddingBottom: 20 }}
+        contentContainerStyle={{ paddingHorizontal: 24, paddingBottom: 120 }}
         renderItem={({ item }) => (
           <View className="flex-row items-center gap-4 p-4 mb-4 bg-white border shadow-sm rounded-3xl border-neutral-100">
             <View className="w-24 h-24 bg-[#f5f5f4] rounded-2xl overflow-hidden border border-neutral-50">

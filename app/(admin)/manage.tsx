@@ -22,20 +22,21 @@ export default function ManageProductScreen() {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         className="flex-1"
       >
-        <View className="flex-row items-center px-4 pt-2 pb-4 bg-white border-b border-neutral-200">
-          <TouchableOpacity onPress={handleBack} className="p-2 mr-2">
+        <View className="flex-row items-center px-6 pt-4 pb-4">
+          <TouchableOpacity onPress={handleBack} className="p-2 mr-2 -ml-2">
             <ChevronLeft size={28} color="#171717" />
           </TouchableOpacity>
           <Text
             style={{ fontFamily: "Inter_700Bold" }}
-            className="text-2xl text-neutral-900"
+            className="text-3xl text-neutral-900"
           >
             {isEditing ? "Edit Product" : "Add Product"}
           </Text>
         </View>
 
         <ScrollView
-          className="flex-1 px-6 pt-6"
+          className="flex-1 px-6 pt-2"
+          contentContainerStyle={{ paddingBottom: 120 }}
           showsVerticalScrollIndicator={false}
         >
           <Controller

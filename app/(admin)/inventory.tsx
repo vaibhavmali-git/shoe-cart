@@ -8,20 +8,14 @@ export default function AdminInventoryScreen() {
   const products = useAppSelector((state) => state.products.items);
 
   return (
-    <SafeAreaView className="flex-1 bg-[#f8f9fa]">
-      <View className="flex-row items-center justify-between px-6 pt-4 pb-4 bg-white border-b border-neutral-200">
+    <SafeAreaView className="flex-1 bg-[#f8f9fa]" edges={["top"]}>
+      <View className="flex-row items-center justify-between px-6 pt-4 pb-8">
         <View>
           <Text
             style={{ fontFamily: "Inter_700Bold" }}
-            className="text-3xl tracking-tight text-neutral-900"
+            className="text-4xl tracking-tight text-neutral-900"
           >
             Inventory
-          </Text>
-          <Text
-            style={{ fontFamily: "Inter_500Medium" }}
-            className="mt-1 text-xs tracking-widest uppercase text-neutral-400"
-          >
-            Manage Catalog
           </Text>
         </View>
 
@@ -36,7 +30,7 @@ export default function AdminInventoryScreen() {
       <FlatList
         data={products}
         keyExtractor={(item) => item.id}
-        contentContainerStyle={{ padding: 24, paddingBottom: 40 }}
+        contentContainerStyle={{ paddingHorizontal: 24, paddingBottom: 120 }}
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
           <View className="flex-row items-center gap-4 p-4 mb-4 bg-white border shadow-sm rounded-2xl border-neutral-100">

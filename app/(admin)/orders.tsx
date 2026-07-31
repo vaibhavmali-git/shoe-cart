@@ -8,7 +8,10 @@ export default function AdminOrdersScreen() {
 
   if (orders.length === 0) {
     return (
-      <SafeAreaView className="flex-1 bg-[#f8f9fa] items-center justify-center px-6">
+      <SafeAreaView
+        className="flex-1 bg-[#f8f9fa] items-center justify-center px-6"
+        edges={["top"]}
+      >
         <View className="items-center justify-center w-20 h-20 mb-6 rounded-full bg-neutral-100">
           <PackageCheck size={32} color="#a3a3a3" />
         </View>
@@ -29,26 +32,21 @@ export default function AdminOrdersScreen() {
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-[#f8f9fa]">
-      <View className="px-6 pt-4 pb-4">
+    <SafeAreaView className="flex-1 bg-[#f8f9fa]" edges={["top"]}>
+      <View className="px-6 pt-4 pb-8">
         <Text
           style={{ fontFamily: "Inter_700Bold" }}
           className="text-4xl tracking-tight text-neutral-900"
         >
-          Orders Dashboard
+        Dashboard
         </Text>
-        <Text
-          style={{ fontFamily: "Inter_500Medium" }}
-          className="mt-1 text-xs tracking-widest uppercase text-neutral-400"
-        >
-          Store Management
-        </Text>
+       
       </View>
 
       <FlatList
         data={orders}
         keyExtractor={(item) => item.id}
-        contentContainerStyle={{ paddingHorizontal: 24, paddingBottom: 40 }}
+        contentContainerStyle={{ paddingHorizontal: 24, paddingBottom: 120 }}
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
           <View className="p-5 mb-4 bg-white border shadow-sm rounded-3xl border-neutral-100">
