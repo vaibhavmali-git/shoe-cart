@@ -28,16 +28,17 @@ export default function CheckoutScreen() {
         <TouchableOpacity onPress={handleBack} className="p-2">
           <ChevronLeft size={28} color="#171717" />
         </TouchableOpacity>
-        <Text className="ml-2 text-xl font-bold text-neutral-900">
+        <Text style={{ fontFamily: "Inter_700Bold" }} className="ml-2 text-xl text-neutral-900">
           Checkout
         </Text>
       </View>
 
       <ScrollView
         className="flex-1 px-6 pt-6"
+        contentContainerStyle={{ paddingBottom: 100 }}
         showsVerticalScrollIndicator={false}
       >
-        <Text className="mb-4 text-lg font-bold text-neutral-900">
+        <Text style={{ fontFamily: "Inter_700Bold" }} className="mb-4 text-lg text-neutral-900">
           Shipping Details
         </Text>
 
@@ -48,13 +49,14 @@ export default function CheckoutScreen() {
             <View className="mb-4">
               <TextInput
                 placeholder="Full Name"
+                style={{ fontFamily: "Inter_400Regular" }}
                 className={`bg-white border rounded-xl px-4 py-4 text-base ${errors.name ? "border-red-500" : "border-neutral-200"}`}
                 onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
               />
               {errors.name && (
-                <Text className="mt-1 ml-1 text-sm text-red-500">
+                <Text style={{ fontFamily: "Inter_500Medium" }} className="mt-1 ml-1 text-sm text-red-500">
                   {errors.name.message}
                 </Text>
               )}
@@ -69,13 +71,14 @@ export default function CheckoutScreen() {
             <View className="mb-8">
               <TextInput
                 placeholder="Full Shipping Address"
+                style={{ fontFamily: "Inter_400Regular" }}
                 className={`bg-white border rounded-xl px-4 py-4 text-base ${errors.address ? "border-red-500" : "border-neutral-200"}`}
                 onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
               />
               {errors.address && (
-                <Text className="mt-1 ml-1 text-sm text-red-500">
+                <Text style={{ fontFamily: "Inter_500Medium" }} className="mt-1 ml-1 text-sm text-red-500">
                   {errors.address.message}
                 </Text>
               )}
@@ -83,7 +86,7 @@ export default function CheckoutScreen() {
           )}
         />
 
-        <Text className="mb-4 text-lg font-bold text-neutral-900">
+        <Text style={{ fontFamily: "Inter_700Bold" }} className="mb-4 text-lg text-neutral-900">
           Payment Information
         </Text>
 
@@ -96,13 +99,14 @@ export default function CheckoutScreen() {
                 placeholder="Card Number (16 digits)"
                 keyboardType="number-pad"
                 maxLength={16}
+                style={{ fontFamily: "Inter_400Regular" }}
                 className={`bg-white border rounded-xl px-4 py-4 text-base ${errors.cardNumber ? "border-red-500" : "border-neutral-200"}`}
                 onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
               />
               {errors.cardNumber && (
-                <Text className="mt-1 ml-1 text-sm text-red-500">
+                <Text style={{ fontFamily: "Inter_500Medium" }} className="mt-1 ml-1 text-sm text-red-500">
                   {errors.cardNumber.message}
                 </Text>
               )}
@@ -119,13 +123,14 @@ export default function CheckoutScreen() {
                 <TextInput
                   placeholder="MM/YY"
                   maxLength={5}
+                  style={{ fontFamily: "Inter_400Regular" }}
                   className={`bg-white border rounded-xl px-4 py-4 text-base ${errors.expiry ? "border-red-500" : "border-neutral-200"}`}
                   onBlur={onBlur}
                   onChangeText={onChange}
                   value={value}
                 />
                 {errors.expiry && (
-                  <Text className="mt-1 ml-1 text-sm text-red-500">
+                  <Text style={{ fontFamily: "Inter_500Medium" }} className="mt-1 ml-1 text-sm text-red-500">
                     {errors.expiry.message}
                   </Text>
                 )}
@@ -142,13 +147,14 @@ export default function CheckoutScreen() {
                   placeholder="CVV"
                   keyboardType="number-pad"
                   maxLength={3}
+                  style={{ fontFamily: "Inter_400Regular" }}
                   className={`bg-white border rounded-xl px-4 py-4 text-base ${errors.cvv ? "border-red-500" : "border-neutral-200"}`}
                   onBlur={onBlur}
                   onChangeText={onChange}
                   value={value}
                 />
                 {errors.cvv && (
-                  <Text className="mt-1 ml-1 text-sm text-red-500">
+                  <Text style={{ fontFamily: "Inter_500Medium" }} className="mt-1 ml-1 text-sm text-red-500">
                     {errors.cvv.message}
                   </Text>
                 )}
@@ -166,7 +172,9 @@ export default function CheckoutScreen() {
           className="items-center w-full py-4 shadow-sm bg-neutral-900 rounded-2xl"
           onPress={onSubmit}
         >
-          <Text className="text-lg font-medium text-white">Pay Now</Text>
+          <Text style={{ fontFamily: "Inter_600SemiBold" }} className="text-lg text-white">
+            Pay Now
+          </Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>

@@ -61,32 +61,9 @@ export default function UserProfileScreen() {
           </TouchableOpacity>
         </View>
 
-        <Text
-          style={{ fontFamily: "Inter_500Medium" }}
-          className="mb-3 text-xs tracking-wider uppercase text-neutral-400"
-        >
-          Preferences
-        </Text>
+      
 
-        <View className="p-2 mb-8 bg-white border shadow-sm rounded-3xl border-neutral-100">
-          <TouchableOpacity
-            onPress={signOut}
-            className="flex-row items-center justify-between p-3.5"
-          >
-            <View className="flex-row items-center gap-3.5">
-              <View className="items-center justify-center w-10 h-10 rounded-full bg-red-50">
-                <LogOut size={18} color="#ef4444" />
-              </View>
-              <Text
-                style={{ fontFamily: "Inter_500Medium" }}
-                className="text-base text-red-600"
-              >
-                Sign Out
-              </Text>
-            </View>
-            <ChevronRight size={18} color="#a3a3a3" />
-          </TouchableOpacity>
-        </View>
+       
       </ScrollView>
     </SafeAreaView>
   );

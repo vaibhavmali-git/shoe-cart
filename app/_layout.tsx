@@ -3,7 +3,7 @@ import {
     Inter_500Medium,
     Inter_600SemiBold,
     Inter_700Bold,
-    useFonts
+    useFonts,
 } from "@expo-google-fonts/inter";
 import { Stack } from "expo-router";
 import { ActivityIndicator, Text, View } from "react-native";
@@ -23,7 +23,7 @@ export default function RootLayout() {
   if (!fontsLoaded) {
     return (
       <View className="flex-1 justify-center items-center bg-[#f8f9fa]">
-        <Text>Loading...</Text>
+        <ActivityIndicator size="large" color="#FF5A1F" />
       </View>
     );
   }
@@ -40,6 +40,8 @@ export default function RootLayout() {
       >
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="index" />
+          <Stack.Screen name="(customer)" />
+          <Stack.Screen name="(admin)" />
         </Stack>
       </PersistGate>
     </Provider>
