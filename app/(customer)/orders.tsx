@@ -1,5 +1,5 @@
 import { Package } from "lucide-react-native";
-import { FlatList, Text, View } from "react-native";
+import { FlatList, Image, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAppSelector } from "../../src/store/hooks";
 
@@ -39,15 +39,13 @@ export default function OrdersScreen() {
         </Text>
       </View>
 
-      {/* Table Container */}
       <View className="flex-1 mx-6 mb-6 overflow-hidden bg-white border shadow-sm rounded-2xl border-neutral-100">
-        {/* Table Header */}
-        <View className="flex-row px-4 py-3 border-b bg-neutral-50 border-neutral-100">
+        <View className="flex-row items-center px-4 py-3 border-b bg-neutral-50 border-neutral-100">
           <Text
             style={{ fontFamily: "Inter_600SemiBold" }}
-            className="flex-[1.5] text-xs text-neutral-500 uppercase"
+            className="flex-[2] text-xs text-neutral-500 uppercase"
           >
-            Order ID
+            Order
           </Text>
           <Text
             style={{ fontFamily: "Inter_600SemiBold" }}
@@ -57,7 +55,7 @@ export default function OrdersScreen() {
           </Text>
           <Text
             style={{ fontFamily: "Inter_600SemiBold" }}
-            className="flex-1 text-xs text-center uppercase text-neutral-500"
+            className="flex-[1.2] text-xs text-neutral-500 uppercase text-center"
           >
             Status
           </Text>
@@ -69,26 +67,44 @@ export default function OrdersScreen() {
           </Text>
         </View>
 
-        {/* Table Body */}
         <FlatList
           data={orders}
           keyExtractor={(item) => item.id}
           showsVerticalScrollIndicator={false}
           renderItem={({ item }) => (
-            <View className="flex-row items-center px-4 py-4 border-b border-neutral-50">
-              {/* ID Column */}
+            <View className="flex-row items-center px-4 py-3 border-b border-neutral-50">
+              {/* Item Column (Image + ID + Count) */}
+              <View className="flex-[2] flex-row items-center gap-3 pr-2">
+                <View className="w-10 h-10 bg-[#f8f9fa] rounded-lg overflow-hidden border border-neutral-100">
+                  {item.items[0] && (
+                    <Image
+                      source={{ uri: item.items[0].product.image }}
+                      className="w-full h-full"
+                      resizeMode="cover"
+                    />
+                  )}
+                </View>
+                <View className="flex-1">
+                  <Text
+                    style={{ fontFamily: "Inter_600SemiBold" }}
+                    className="text-xs text-neutral-900"
+                    numberOfLines={1}
+                  >
+                    {item.id.replace("ORD-", "#")}
+                  </Text>
+                  <Text
+                    style={{ fontFamily: "Inter_500Medium" }}
+                    className="text-[10px] text-neutral-400 mt-0.5"
+                    numberOfLines={1}
+                  >
+                    {item.items.length} item{item.items.length > 1 ? "s" : ""}
+                  </Text>
+                </View>
+              </View>
+
               <Text
                 style={{ fontFamily: "Inter_500Medium" }}
-                className="flex-[1.5] text-sm text-neutral-900"
-                numberOfLines={1}
-              >
-                {item.id.replace("ORD-", "#")}
-              </Text>
-
-              {/* Date Column */}
-              <Text
-                style={{ fontFamily: "Inter_400Regular" }}
-                className="flex-1 text-sm text-neutral-500"
+                className="flex-1 text-xs text-neutral-500"
               >
                 {new Date(item.date).toLocaleDateString(undefined, {
                   month: "short",
@@ -96,8 +112,7 @@ export default function OrdersScreen() {
                 })}
               </Text>
 
-              {/* Status Column */}
-              <View className="items-center flex-1">
+              <View className="flex-[1.2] items-center">
                 <View
                   className={`px-2 py-1 rounded-md ${
                     item.status === "Delivered"
@@ -109,7 +124,7 @@ export default function OrdersScreen() {
                 >
                   <Text
                     style={{ fontFamily: "Inter_600SemiBold" }}
-                    className={`text-[10px] uppercase ${
+                    className={`text-[9px] uppercase ${
                       item.status === "Delivered"
                         ? "text-emerald-700"
                         : item.status === "Shipped"
@@ -122,10 +137,9 @@ export default function OrdersScreen() {
                 </View>
               </View>
 
-              {/* Total Column */}
               <Text
                 style={{ fontFamily: "Inter_600SemiBold" }}
-                className="flex-1 text-sm text-right text-neutral-900"
+                className="flex-1 text-xs text-right text-neutral-900"
               >
                 ${item.total.toFixed(2)}
               </Text>
