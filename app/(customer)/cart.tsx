@@ -51,7 +51,7 @@ export default function CartScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-[#f8f9fa]" edges={['top']}>
-      <View className="px-6 pt-4 pb-4">
+      <View className="px-6 pt-4 pb-8">
         <Text
           style={{ fontFamily: "Inter_700Bold" }}
           className="text-4xl tracking-tight text-neutral-900"

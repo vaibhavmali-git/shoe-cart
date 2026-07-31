@@ -33,19 +33,14 @@ export default function CustomerOrdersScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-[#f8f9fa]" edges={["top"]}>
-      <View className="px-6 pt-4 pb-4">
+      <View className="px-6 pt-4 pb-8">
         <Text
           style={{ fontFamily: "Inter_700Bold" }}
           className="text-4xl tracking-tight text-neutral-900"
         >
           My Orders
         </Text>
-        <Text
-          style={{ fontFamily: "Inter_500Medium" }}
-          className="mt-1 text-xs tracking-widest uppercase text-neutral-400"
-        >
-          Purchase History
-        </Text>
+        
       </View>
 
       <FlatList

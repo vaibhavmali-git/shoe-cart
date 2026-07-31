@@ -1,10 +1,9 @@
 import {
-    ChevronRight,
-    Layers,
-    LogOut,
-    Mail,
-    PackageCheck,
-    ShieldCheck,
+  ChevronRight,
+  Layers,
+  LogOut,
+  PackageCheck,
+  ShieldCheck,
 } from "lucide-react-native";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -20,7 +19,7 @@ export default function AdminProfileScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-[#f8f9fa]" edges={["top"]}>
-      <View className="px-6 pt-4 pb-8">
+      <View className="px-6 pt-4 pb-6">
         <Text
           style={{ fontFamily: "Inter_700Bold" }}
           className="text-4xl tracking-tight text-neutral-900"
@@ -34,40 +33,17 @@ export default function AdminProfileScreen() {
         contentContainerStyle={{ paddingBottom: 120 }}
         showsVerticalScrollIndicator={false}
       >
-        <View className="flex-row items-center gap-4 p-6 mb-6 bg-white border shadow-sm rounded-3xl border-neutral-100">
-          <View className="items-center justify-center w-16 h-16 bg-neutral-900 rounded-2xl">
-            <ShieldCheck size={30} color="#ffffff" />
-          </View>
-          <View className="flex-1">
-            <Text
-              style={{ fontFamily: "Inter_700Bold" }}
-              className="mb-1 text-xl text-neutral-900"
-            >
-              Store Administrator
-            </Text>
-            <View className="flex-row items-center gap-1.5">
-              <Mail size={14} color="#a3a3a3" />
-              <Text
-                style={{ fontFamily: "Inter_400Regular" }}
-                className="text-sm text-neutral-500"
-              >
-                admin@shoecart.com
-              </Text>
-            </View>
-          </View>
-        </View>
-
-        <View className="p-3 mb-6 bg-white border shadow-sm rounded-3xl border-neutral-100">
+        <View className="p-2 mb-6 bg-white border shadow-sm rounded-3xl border-neutral-100">
           <TouchableOpacity
             onPress={navigateToOrders}
-            className="flex-row items-center justify-between p-4 border-b border-neutral-50"
+            className="flex-row items-center justify-between p-3.5 border-b border-neutral-50"
           >
-            <View className="flex-row items-center gap-3">
-              <View className="items-center justify-center w-10 h-10 bg-neutral-50 rounded-xl">
-                <PackageCheck size={20} color="#171717" />
+            <View className="flex-row items-center gap-3.5">
+              <View className="items-center justify-center w-10 h-10 rounded-full bg-neutral-100">
+                <PackageCheck size={18} color="#171717" />
               </View>
               <Text
-                style={{ fontFamily: "Inter_600SemiBold" }}
+                style={{ fontFamily: "Inter_500Medium" }}
                 className="text-base text-neutral-900"
               >
                 Manage Orders Table
@@ -78,14 +54,14 @@ export default function AdminProfileScreen() {
 
           <TouchableOpacity
             onPress={navigateToShoes}
-            className="flex-row items-center justify-between p-4 border-b border-neutral-50"
+            className="flex-row items-center justify-between p-3.5 border-b border-neutral-50"
           >
-            <View className="flex-row items-center gap-3">
-              <View className="items-center justify-center w-10 h-10 bg-neutral-50 rounded-xl">
-                <Layers size={20} color="#171717" />
+            <View className="flex-row items-center gap-3.5">
+              <View className="items-center justify-center w-10 h-10 rounded-full bg-neutral-100">
+                <Layers size={18} color="#171717" />
               </View>
               <Text
-                style={{ fontFamily: "Inter_600SemiBold" }}
+                style={{ fontFamily: "Inter_500Medium" }}
                 className="text-base text-neutral-900"
               >
                 Manage Shoe Inventory
@@ -96,14 +72,14 @@ export default function AdminProfileScreen() {
 
           <TouchableOpacity
             onPress={navigateToCustomerStore}
-            className="flex-row items-center justify-between p-4"
+            className="flex-row items-center justify-between p-3.5"
           >
-            <View className="flex-row items-center gap-3">
-              <View className="items-center justify-center w-10 h-10 bg-neutral-50 rounded-xl">
-                <ShieldCheck size={20} color="#171717" />
+            <View className="flex-row items-center gap-3.5">
+              <View className="items-center justify-center w-10 h-10 rounded-full bg-neutral-100">
+                <ShieldCheck size={18} color="#171717" />
               </View>
               <Text
-                style={{ fontFamily: "Inter_600SemiBold" }}
+                style={{ fontFamily: "Inter_500Medium" }}
                 className="text-base text-neutral-900"
               >
                 Switch to Customer Store
@@ -113,18 +89,32 @@ export default function AdminProfileScreen() {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity
-          onPress={signOut}
-          className="flex-row items-center justify-center gap-2 py-4 mb-12 border border-red-100 shadow-sm bg-red-50 rounded-2xl"
+        <Text
+          style={{ fontFamily: "Inter_500Medium" }}
+          className="mb-3 text-xs tracking-wider uppercase text-neutral-400"
         >
-          <LogOut size={18} color="#ef4444" />
-          <Text
-            style={{ fontFamily: "Inter_600SemiBold" }}
-            className="text-base text-red-600"
+          Session
+        </Text>
+
+        <View className="p-2 mb-8 bg-white border shadow-sm rounded-3xl border-neutral-100">
+          <TouchableOpacity
+            onPress={signOut}
+            className="flex-row items-center justify-between p-3.5"
           >
-            Exit Admin Portal
-          </Text>
-        </TouchableOpacity>
+            <View className="flex-row items-center gap-3.5">
+              <View className="items-center justify-center w-10 h-10 rounded-full bg-red-50">
+                <LogOut size={18} color="#ef4444" />
+              </View>
+              <Text
+                style={{ fontFamily: "Inter_500Medium" }}
+                className="text-base text-red-600"
+              >
+                Exit Admin Portal
+              </Text>
+            </View>
+            <ChevronRight size={18} color="#a3a3a3" />
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
