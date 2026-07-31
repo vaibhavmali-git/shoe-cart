@@ -1,4 +1,3 @@
-import { Href, router } from "expo-router";
 import {
     ChevronRight,
     Layers,
@@ -9,11 +8,15 @@ import {
 } from "lucide-react-native";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useAdminProfile } from "../../src/hooks/useAdminProfile";
 
 export default function AdminProfileScreen() {
-  const handleLogout = () => {
-    router.replace("/" as Href);
-  };
+  const {
+    signOut,
+    navigateToOrders,
+    navigateToShoes,
+    navigateToCustomerStore,
+  } = useAdminProfile();
 
   return (
     <SafeAreaView className="flex-1 bg-[#f8f9fa]">
@@ -52,7 +55,7 @@ export default function AdminProfileScreen() {
 
         <View className="p-3 mb-6 bg-white border shadow-sm rounded-3xl border-neutral-100">
           <TouchableOpacity
-            onPress={() => router.push("/(admin)/orders" as Href)}
+            onPress={navigateToOrders}
             className="flex-row items-center justify-between p-4 border-b border-neutral-50"
           >
             <View className="flex-row items-center gap-3">
@@ -70,7 +73,7 @@ export default function AdminProfileScreen() {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => router.push("/(admin)/shoes" as Href)}
+            onPress={navigateToShoes}
             className="flex-row items-center justify-between p-4 border-b border-neutral-50"
           >
             <View className="flex-row items-center gap-3">
@@ -88,7 +91,7 @@ export default function AdminProfileScreen() {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => router.replace("/(customer)" as Href)}
+            onPress={navigateToCustomerStore}
             className="flex-row items-center justify-between p-4"
           >
             <View className="flex-row items-center gap-3">
@@ -107,7 +110,7 @@ export default function AdminProfileScreen() {
         </View>
 
         <TouchableOpacity
-          onPress={handleLogout}
+          onPress={signOut}
           className="flex-row items-center justify-center gap-2 py-4 mb-12 border border-red-100 shadow-sm bg-red-50 rounded-2xl"
         >
           <LogOut size={18} color="#ef4444" />

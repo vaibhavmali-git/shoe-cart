@@ -1,10 +1,10 @@
 import { Calendar, Package } from "lucide-react-native";
 import { FlatList, Image, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useAppSelector } from "../../src/store/hooks";
+import { useOrders } from "../../src/hooks/useOrders";
 
-export default function OrdersScreen() {
-  const orders = useAppSelector((state) => state.orders.history);
+export default function CustomerOrdersScreen() {
+  const { orders } = useOrders();
 
   if (orders.length === 0) {
     return (

@@ -1,23 +1,20 @@
-import { Href, router } from "expo-router";
 import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react-native";
 import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useAppDispatch, useAppSelector } from "../../src/store/hooks";
-import {
-    removeFromCart,
-    updateQuantity,
-} from "../../src/store/slices/cartSlice";
+import { useCart } from "../../src/hooks/useCart";
 
 export default function CartScreen() {
-  const dispatch = useAppDispatch();
-  const cartItems = useAppSelector((state) => state.cart.items);
-
-  const subtotal = cartItems.reduce(
-    (sum, item) => sum + item.product.price * item.quantity,
-    0,
-  );
-  const deliveryFee = cartItems.length > 0 ? 5.0 : 0;
-  const total = subtotal + deliveryFee;
+  const {
+    cartItems,
+    subtotal,
+    deliveryFee,
+    total,
+    handleIncrement,
+    handleDecrement,
+    handleRemove,
+    handleStartShopping,
+    handleCheckout,
+  } = useCart();
 
   if (cartItems.length === 0) {
     return (
@@ -38,7 +35,7 @@ export default function CartScreen() {
           Explore our catalog and find your next pair of shoes.
         </Text>
         <TouchableOpacity
-          onPress={() => router.push("/(customer)")}
+          onPress={handleStartShopping}
           className="px-8 py-4 shadow-sm bg-neutral-900 rounded-2xl"
         >
           <Text
@@ -96,14 +93,7 @@ export default function CartScreen() {
               <View className="flex-row items-center justify-between">
                 <View className="flex-row items-center gap-3 p-1 bg-neutral-100 rounded-xl">
                   <TouchableOpacity
-                    onPress={() =>
-                      dispatch(
-                        updateQuantity({
-                          id: item.id,
-                          quantity: Math.max(1, item.quantity - 1),
-                        }),
-                      )
-                    }
+                    onPress={() => handleDecrement(item.id, item.quantity)}
                     className="items-center justify-center bg-white rounded-lg shadow-sm w-7 h-7"
                   >
                     <Minus size={14} color="#171717" />
@@ -117,14 +107,7 @@ export default function CartScreen() {
                   </Text>
 
                   <TouchableOpacity
-                    onPress={() =>
-                      dispatch(
-                        updateQuantity({
-                          id: item.id,
-                          quantity: item.quantity + 1,
-                        }),
-                      )
-                    }
+                    onPress={() => handleIncrement(item.id, item.quantity)}
                     className="items-center justify-center bg-white rounded-lg shadow-sm w-7 h-7"
                   >
                     <Plus size={14} color="#171717" />
@@ -132,7 +115,7 @@ export default function CartScreen() {
                 </View>
 
                 <TouchableOpacity
-                  onPress={() => dispatch(removeFromCart(item.id))}
+                  onPress={() => handleRemove(item.id)}
                   className="p-2"
                 >
                   <Trash2 size={18} color="#ef4444" />
@@ -191,7 +174,7 @@ export default function CartScreen() {
         </View>
 
         <TouchableOpacity
-          onPress={() => router.push("/checkout" as Href)}
+          onPress={handleCheckout}
           className="items-center w-full py-4 shadow-sm bg-neutral-900 rounded-2xl"
         >
           <Text

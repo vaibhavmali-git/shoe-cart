@@ -1,23 +1,16 @@
-import { useRouter } from "expo-router";
 import { Search } from "lucide-react-native";
-import { useState } from "react";
 import { FlatList, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ProductCard from "../../src/components/ProductCard";
-import { useAppSelector } from "../../src/store/hooks";
+import { useProductSearch } from "../../src/hooks/useProductSearch";
 
-export default function CustomerHome() {
-  const products = useAppSelector((state) => state.products.items);
-  const router = useRouter();
-
-  const [searchQuery, setSearchQuery] = useState("");
-
-  // Filter products strictly based on search query
-  const filteredProducts = products.filter(
-    (product) =>
-      product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      product.brand.toLowerCase().includes(searchQuery.toLowerCase()),
-  );
+export default function CustomerShopScreen() {
+  const {
+    searchQuery,
+    setSearchQuery,
+    filteredProducts,
+    navigateToProductDetails,
+  } = useProductSearch();
 
   return (
     <SafeAreaView className="flex-1 bg-[#f8f9fa]">
@@ -50,7 +43,7 @@ export default function CustomerHome() {
         renderItem={({ item }) => (
           <ProductCard
             product={item}
-            onPress={() => router.push(`/product/${item.id}`)}
+            onPress={() => navigateToProductDetails(item.id)}
           />
         )}
         contentContainerStyle={{ paddingHorizontal: 24, paddingBottom: 40 }}

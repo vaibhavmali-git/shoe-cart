@@ -1,25 +1,10 @@
 import { Calendar, PackageCheck, RefreshCw } from "lucide-react-native";
 import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useAppDispatch, useAppSelector } from "../../src/store/hooks";
-import { updateOrderStatus } from "../../src/store/slices/orderSlice";
+import { useAdminOrders } from "../../src/hooks/useAdminOrders";
 
 export default function AdminOrdersScreen() {
-  const dispatch = useAppDispatch();
-  const orders = useAppSelector((state) => state.orders.history);
-
-  const cycleStatus = (
-    currentStatus: "Processing" | "Shipped" | "Delivered",
-    orderId: string,
-  ) => {
-    const nextStatus =
-      currentStatus === "Processing"
-        ? "Shipped"
-        : currentStatus === "Shipped"
-          ? "Delivered"
-          : "Processing";
-    dispatch(updateOrderStatus({ id: orderId, status: nextStatus }));
-  };
+  const { orders, handleCycleStatus } = useAdminOrders();
 
   if (orders.length === 0) {
     return (
@@ -91,7 +76,7 @@ export default function AdminOrdersScreen() {
               </View>
 
               <TouchableOpacity
-                onPress={() => cycleStatus(item.status, item.id)}
+                onPress={() => handleCycleStatus(item.status, item.id)}
                 className={`flex-row items-center gap-1.5 px-3.5 py-2 rounded-xl ${
                   item.status === "Delivered"
                     ? "bg-emerald-50 border border-emerald-200"
